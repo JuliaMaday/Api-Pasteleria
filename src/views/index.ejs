@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <title>Pasteleria</title>
+</head>
+
+<body>
+
+    <body>
+        <div data-role="page" id="inicio">
+            <div data-role="content" style="background-color: #F0DBAF;">
+                <div data-role="header">
+                    <h1> Pastelería "Lluly"</h1>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#inicio" data-icon="home">Inicio</a></li>
+                            <li><a href="#pedidos" data-icon="eye">Pedidos</a></li>
+                            <li><a href="#pasteles" data-icon="user">Pasteles</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="text-align: center;">
+                    Te damos la bienvenida a Pastelería Lluly. Aquí tenemos los mejores
+                    pasteles para cualquier ocasión. Solo necesitas visitar nuestra pastelería y te proporcionaremos el
+                    mejor pastel que desees y que se adapte a tus gustos. Además, puedes escoger el diseño y el sabor
+                    que prefieras. Visítanos y no te arrepentirás, haremos realidad el pastel de tus sueños.
+                </p>
+                <div style="text-align: center;">
+                    <img src="https://i2.wp.com/www.salacapricho.es/wp-content/uploads/2016/04/tarta_skl.png?fit=1600%2C1060&ssl=1"
+                        style="width: 200px; margin: 10px;">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP.1sCOX-rjdw6utibt2JTo-QHaE7&pid=Api&P=0&h=180"
+                        style="width: 200px; margin: 10px;">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP.1VVzy6CjycLYA3VpnCK_QwHaFT&pid=Api&P=0&h=180"
+                        style="width: 190px; margin: 10px;">
+                </div>
+                <form action="/" method="POST">
+                    <input type="text" name="barcode" id="txt_barcode" placeholder="Codigo de barras">
+                    <input type="text" name="description" id="txt_description" placeholder="Descripción">
+                    <input type="number" name="price" id="txt_price" placeholder="Precio">
+                    <input type="number" name="stock" id="txt_stock" placeholder="Existencias">
+                    <input type="date" name="expiredDate" id="txt_expired_date" placeholder="Fecha de caducidad">
+                    <label for="flip-2">Activo</label>
+                    <select name="status" id="flip-2" data-role="slider">
+                        <option value="0">No</option>
+                        <option value="1">Si</option>
+                    </select>
+                    <button type="submit" id="submit-6" class="ui-shadow ui-btn ui-corner-all ui-mini">Guardar</button>
+                </form>
+            </div>
+            <div data-role="footer">
+                <h5>Lo mejor de lo mejor</h5>
+            </div>
+        </div>
+
+
+        <div data-role="page" id="pedidos">
+            <div data-role="content" style="background-color: #F0DBAF;">
+
+                <div data-role="header">
+                    <h1>Pedidos</h1>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#inicio" data-icon="home">Inicio</a></li>
+                            <li><a href="#pedidos" data-icon="eye">Pedidos</a></li>
+                            <li><a href="#pasteles" data-icon="user">Pasteles</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div data-role="collapsibleset" data-filter="true" data-inset="true" id="collapsiblesetForFilter"
+                    data-input="#searchForCollapsibleSet">
+                    <img src="https://tse4.mm.bing.net/th?id=OIP.0h7ou6mmSq9NvccTPIafCQHaD4&pid=Api&P=0&h=180"
+                        style="width: 250px; margin: 10px;">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP.EXlqQqhJmEVlsWf1_uXNSAHaE7&pid=Api&P=0&h=180"
+                        style="width: 200px; margin: 10px;">
+                    <img src="https://i.ytimg.com/vi/sAyjs-bkcbA/maxresdefault.jpg" style="width: 240px; margin: 10px;">
+                    <img src="https://easyrecetas.com/wp-content/uploads/2020/04/Receta-de-Pastel-de-Vainilla.jpg"
+                        style="width: 210px; margin: 10px;">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP.kcPfLwK_-1OcZpUGvWZ7cgHaEK&pid=Api&P=0&h=180"
+                        style="width: 230px; margin: 10px;">
+
+                    <% products.forEach((product)=>{ %>
+                        <div data-role="collapsible" data-filtertext="<%= product.description %>">
+                            <h3>
+                                <%= product.description %>
+                            </h3>
+                            <ul data-role="listview" data-inset="false">
+                                <li>Codigo de barras: <%= product.barcode %>
+                                </li>
+                                <li>Descripción: <%= product.description %>
+                                </li>
+                                <li>Precio: <%= product.price %>
+                                </li>
+                                <li>Stock: <%= product.stock %>
+                                </li>
+                                <li>Fecha de expiración: <%= product.expiredDate %>
+                                </li>
+                                <li>Estatus: <%= product.status %>
+                                </li>
+                                <button><a style="text-decoration: none; color: black;"
+                                        href="/<%= product.barcode %>">Editar</a></button>
+                                <button><a style="text-decoration: none; color: black;"
+                                        href="/deleteOne/<%= product.barcode %>">Eliminar</a></button>
+                            </ul>
+                        </div>
+                        <% }) %>
+                            <div data-role="footer">
+                                <h5>Lo mejor de lo mejor</h5>
+                            </div>
+                </div>
+            </div>
+        </div>
+
+        <div data-role="page" id="pasteles">
+            <div data-role="content" style="background-color: #F0DBAF;">
+                <div data-role="header">
+                    <h1>Pasteles</h1>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#inicio" data-icon="home">Inicio</a></li>
+                            <li><a href="#pedidos" data-icon="eye">Pedidos</a></li>
+                            <li><a href="#pasteles" data-icon="user">Pasteles</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div data-role="content">
+                    <h2>Los mejores Pasteles</h2>
+                    <p>Aquí puedes encontrar los ingredientes de cada pastel que sea de tu agrado</p>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                        <div
+                            style="margin: 10px; text-align: center; border: 1px solid #148166; border-radius: 10px; padding: 20px; width: 250px;">
+                            <h3>Pastel de Chocolate</h3>
+                            <p>Ingredientes:<br> -Chocolate, <br>-leche, <br>-nueces, <br>-mango, <br>-fresas, <br>$450
+                            </p>
+                            <img src="https://tse4.explicit.bing.net/th?id=OIP.UrvQIXTSphBGFDFDvHDALwHaHa&pid=Api&P=0&w=300&h=300"
+                                style="width: 180px;">
+                        </div>
+
+                        <div
+                            style="margin: 10px; text-align: center; border: 1px solid #084089; border-radius: 10px; padding: 20px; width: 250px;">
+                            <h3>Pastel de Fresa</h3>
+                            <p>Ingredientes:<br>-Fresa, <br>-leche, <br>-mango, <br>-fresas, <br>$300</p>
+                            <img src="https://tse1.mm.bing.net/th?id=OIP.ByOIkN0DTPZmrUQiKV3NfAHaE7&pid=Api&P=0&h=180"
+                                style="width: 240px;">
+                        </div>
+
+                        <div
+                            style="margin: 10px; text-align: center; border: 1px solid #bd1167; border-radius: 10px; padding: 20px; width: 250px;">
+                            <h3>Pastel de Vainilla</h3>
+                            <p>Ingredientes:<br>-Vainilla, <br>-leche, <br>-mango, <br>-fresasm <br>$250</p>
+                            <img src="https://amarato.com/wp-content/uploads/2020/11/23-Torta-de-Vainilla-con-Frutilla.jpg"
+                                style="width: 240px;">
+                        </div>
+
+                        <div
+                            style="margin: 10px; text-align: center; border: 1px solid #23a309; border-radius: 10px; padding: 20px; width: 250px;">
+                            <h3>Pastel de Panqué</h3>
+                            <p>Ingredientes:<br>-Harina, <br>-huevo, <br>-azúcar, <br>-lechem <br>$280</p>
+                            <img src="https://i.pinimg.com/originals/ac/e7/de/ace7de5afbf40243c01a5b343dafa408.jpg"
+                                style="width: 200px;">
+                        </div>
+
+                        <div
+                            style="margin: 10px; text-align: center; border: 1px solid #14b3ec; border-radius: 10px; padding: 20px; width: 250px;">
+                            <h3>Tiramisú</h3>
+                            <p>Ingredientes:<br>-café, <br>-licor, <br>-azúcar, <br>-lechem <br>$200</p>
+                            <img src="https://tse3.mm.bing.net/th?id=OIP.xlTqpOAUK8k_13peo4lvWwHaFj&pid=Api&P=0&h=180"
+                                style="width: 200px;">
+                        </div>
+                        
+                        
+
+
+                    </div>
+                </div>
+                <div data-role="footer">
+                    <h5>Lo mejor de lo mejor</h5>
+                </div>
+            </div>
+        </div>
+
+
+
+    </body>
+
+</html>

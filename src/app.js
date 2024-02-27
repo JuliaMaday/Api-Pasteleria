@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import { config } from 'dotenv';
-import productsRouter from './routes/products.routes.js';
+import productsRouter from './routes/zoologico.routes.js';
 config();
 
 const app = express();
